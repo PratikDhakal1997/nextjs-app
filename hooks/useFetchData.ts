@@ -2,9 +2,19 @@ import { useState, useEffect } from "react";
 
 const API_URL = "https://jsonplaceholder.typicode.com/posts";
 
-const useFetchData = (page, limit) => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+interface Post {
+  id: number;
+  userId: number;
+  title: string;
+  body: string;
+}
+
+const useFetchData = (
+  page: number,
+  limit: number
+): { data: Post[]; loading: boolean } => {
+  const [data, setData] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {

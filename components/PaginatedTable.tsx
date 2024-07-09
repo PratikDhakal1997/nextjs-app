@@ -12,16 +12,30 @@ import {
 } from "@mui/material";
 import useFetchData from "../hooks/useFetchData";
 
-const PaginatedTable = () => {
+interface Row {
+  id: number;
+  title: string;
+  body: string;
+}
+
+const PaginatedTable: React.FC = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const { data, loading } = useFetchData(page + 1, rowsPerPage);
+  const { data, loading }: { data: Row[]; loading: boolean } = useFetchData(
+    page + 1,
+    rowsPerPage
+  );
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
